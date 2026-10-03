@@ -15,6 +15,9 @@ import EditUser from "./features/users/pages/edit-user.jsx";
 import Providers from "./features/providers/pages/index.jsx";
 import CreateProvider from "./features/providers/pages/create-provider.jsx";
 import EditProvider from "./features/providers/pages/edit-provider.jsx";
+import Sales from "./features/sales/pages/index.jsx";
+import CreateSale from "./features/sales/pages/create-sale.jsx";
+import EditSale from "./features/sales/pages/edit-sale.jsx";
 import { AppLayout } from "./layout/app-layout.jsx";
 
 createRoot(document.getElementById("root")).render(
@@ -32,6 +35,9 @@ createRoot(document.getElementById("root")).render(
           <Route path="/providers" element={<Providers />} />
           <Route path="/providers/create" element={<CreateProvider />} />
           <Route path="/providers/edit/:id" element={<EditProvider />} />
+          <Route path="/sales" element={<Sales />} />
+          <Route path="/sales/create" element={<CreateSale />} />
+          <Route path="/sales/edit/:id" element={<EditSale />} />
         </Route>
       </Routes>
     </BrowserRouter>
