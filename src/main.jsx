@@ -9,6 +9,12 @@ import Products from "./features/products/pages/index.jsx";
 import Home from "./pages/index.jsx";
 import CreateProduct from "./features/products/pages/create-product.jsx";
 import EditProduct from "./features/products/pages/edit-product.jsx";
+import Users from "./features/users/pages/index.jsx";
+import CreateUser from "./features/users/pages/create-user.jsx";
+import EditUser from "./features/users/pages/edit-user.jsx";
+import Providers from "./features/providers/pages/index.jsx";
+import CreateProvider from "./features/providers/pages/create-provider.jsx";
+import EditProvider from "./features/providers/pages/edit-provider.jsx";
 import { AppLayout } from "./layout/app-layout.jsx";
 
 createRoot(document.getElementById("root")).render(
@@ -20,6 +26,12 @@ createRoot(document.getElementById("root")).render(
           <Route path="/products" element={<Products />} />
           <Route path="/products/create" element={<CreateProduct />} />
           <Route path="/products/edit/:id" element={<EditProduct />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/users/create" element={<CreateUser />} />
+          <Route path="/users/edit/:id" element={<EditUser />} />
+          <Route path="/providers" element={<Providers />} />
+          <Route path="/providers/create" element={<CreateProvider />} />
+          <Route path="/providers/edit/:id" element={<EditProvider />} />
         </Route>
       </Routes>
     </BrowserRouter>
