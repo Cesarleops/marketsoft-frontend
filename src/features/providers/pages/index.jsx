@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getProviders } from "../api";
 import { Link } from "react-router";
-import { ProviderCard } from "../components/provider-card";
+import { ProviderTable } from "../components/provider-table";
 import { toast } from "react-toastify";
 import { getErrorMessage } from "../../shared/http-client";
 
@@ -33,15 +33,12 @@ export default function Providers() {
         </Link>
       </header>
       {loading && <p>Cargando</p>}
-      <div className="row row-cols-1 row-cols-md-3 g-4">
-        {providers.map((provider) => (
-          <ProviderCard
-            key={provider.id}
-            provider={provider}
-            onDelete={() => fetchProviders()}
-          />
-        ))}
-      </div>
+      {!loading && (
+        <ProviderTable
+          providers={providers}
+          onDelete={() => fetchProviders()}
+        />
+      )}
     </section>
   );
 }

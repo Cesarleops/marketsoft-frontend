@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getProducts } from "../api";
 import { Link } from "react-router";
-import { ProductCard } from "../components/product-card";
+import { ProductTable } from "../components/product-table";
 import { toast } from "react-toastify";
 import { getErrorMessage } from "../../shared/http-client";
 
@@ -33,15 +33,12 @@ export default function Products() {
         </Link>
       </header>
       {loading && <p>Cargando</p>}
-      <div className="row row-cols-1 row-cols-md-3 g-4">
-        {products.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            onDelete={() => fetchProducts()}
-          />
-        ))}
-      </div>
+      {!loading && (
+        <ProductTable
+          products={products}
+          onDelete={() => fetchProducts()}
+        />
+      )}
     </section>
   );
 }

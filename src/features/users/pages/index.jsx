@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getUsers } from "../api";
 import { Link } from "react-router";
-import { UserCard } from "../components/user-card";
+import { UserTable } from "../components/user-table";
 import { toast } from "react-toastify";
 import { getErrorMessage } from "../../shared/http-client";
 
@@ -33,15 +33,9 @@ export default function Users() {
         </Link>
       </header>
       {loading && <p>Cargando</p>}
-      <div className="row row-cols-1 row-cols-md-3 g-4">
-        {users.map((user) => (
-          <UserCard
-            key={user.id}
-            user={user}
-            onDelete={() => fetchUsers()}
-          />
-        ))}
-      </div>
+      {!loading && (
+        <UserTable users={users} onDelete={() => fetchUsers()} />
+      )}
     </section>
   );
 }
