@@ -1,7 +1,9 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router";
+import { ToastContainer } from "react-toastify";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "react-toastify/dist/ReactToastify.css";
 
 import Products from "./features/products/pages/index.jsx";
 import Home from "./pages/index.jsx";
@@ -21,5 +23,6 @@ createRoot(document.getElementById("root")).render(
         </Route>
       </Routes>
     </BrowserRouter>
+    <ToastContainer autoClose={3000} theme="colored" />
   </StrictMode>,
 );
