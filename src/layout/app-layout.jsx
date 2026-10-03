@@ -7,7 +7,7 @@ export const AppLayout = () => {
       <header>
         <NavigationList />
       </header>
-      <main>
+      <main className="container py-4">
         <Outlet />
       </main>
     </div>
