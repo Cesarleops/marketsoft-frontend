@@ -1,16 +1,23 @@
-# React + Vite
+# Marketsoft Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+## Descripción
+Este proyecto es el frontend de la aplicación Marketsoft, una plataforma para gestionar usuarios, proveedores, productos y ventas 
+de un supermercado.
 
-Currently, two official plugins are available:
+## Organización del proyecto
+El proyecto está organizado por features, separando la lógica de cada módulo en carpetas separadas.
+Cada módulo contiene sus propios components y api.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Como ejecutar el proyecto
 
-## React Compiler
+### Prerequisitos
+- Tener en ejecución el backend de la aplicación (nota: es necesario ejecutar `git pull` en el directorio del backend para actualizarlo a la ultima versión que contiene la configuración de CORS)
+- Node > 20.0.0
+- npm > 10.0.0
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Instalación
+1. Clonar el repositorio
+2. Ejecutar `npm install` para instalar las dependencias
+3. Ejecutar `npm run dev` para iniciar el servidor de desarrollo
 
-## Expanding the Oxlint configuration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
