@@ -29,7 +29,7 @@ export default function EditUser() {
         const response = await getUser(id);
         setUser(response);
       } catch (error) {
-        setError(error.message);
+        setError(getErrorMessage(error, "No se pudo cargar el usuario"));
       } finally {
         setIsLoading(false);
       }

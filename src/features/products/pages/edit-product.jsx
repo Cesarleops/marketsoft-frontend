@@ -29,7 +29,7 @@ export default function EditProduct() {
         const response = await getProduct(id);
         setProduct(response);
       } catch (error) {
-        setError(error.message);
+        setError(getErrorMessage(error, "No se pudo cargar el producto"));
       } finally {
         setIsLoading(false);
       }

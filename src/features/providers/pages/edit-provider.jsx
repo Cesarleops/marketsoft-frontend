@@ -29,7 +29,7 @@ export default function EditProvider() {
         const response = await getProvider(id);
         setProvider(response);
       } catch (error) {
-        setError(error.message);
+        setError(getErrorMessage(error, "No se pudo cargar el proveedor"));
       } finally {
         setIsLoading(false);
       }
