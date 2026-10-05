@@ -3,7 +3,11 @@ import { deleteProduct } from "../api";
 import { toast } from "react-toastify";
 import { getErrorMessage } from "../../shared/http-client";
 
-export const ProductTable = ({ products, onDelete }) => {
+export const ProductTable = ({ products, providers, onDelete }) => {
+  const providersById = new Map(
+    providers.map((provider) => [provider.id, provider]),
+  );
+
   const handleDelete = async (productId) => {
     try {
       await deleteProduct(productId);
@@ -22,13 +26,14 @@ export const ProductTable = ({ products, onDelete }) => {
             <th scope="col">Descripción</th>
             <th scope="col">Precio</th>
             <th scope="col">Stock</th>
+            <th scope="col">Proveedor</th>
             <th scope="col">Acciones</th>
           </tr>
         </thead>
         <tbody>
           {products.length === 0 && (
             <tr>
-              <td colSpan={5} className="text-center text-body-secondary">
+              <td colSpan={6} className="text-center text-body-secondary">
                 No hay productos
               </td>
             </tr>
@@ -39,6 +44,7 @@ export const ProductTable = ({ products, onDelete }) => {
               <td className="text-body-secondary">{product.description}</td>
               <td>${Number(product.price).toFixed(2)}</td>
               <td>{product.stock}</td>
+              <td>{providersById.get(product.providerId)?.name ?? "—"}</td>
               <td>
                 <div className="d-flex gap-2">
                   <Link

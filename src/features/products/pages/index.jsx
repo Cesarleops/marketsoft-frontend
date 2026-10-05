@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getProducts } from "../api";
+import { getProviders } from "../../providers/api";
 import { Link } from "react-router";
 import { ProductTable } from "../components/product-table";
 import { toast } from "react-toastify";
@@ -7,6 +8,7 @@ import { getErrorMessage } from "../../shared/http-client";
 
 export default function Products() {
   const [products, setProducts] = useState([]);
+  const [providers, setProviders] = useState([]);
 
   const [loading, setLoading] = useState(false);
 
@@ -23,6 +25,17 @@ export default function Products() {
   };
   useEffect(() => {
     fetchProducts();
+    const fetchProviders = async () => {
+      try {
+        const providers = await getProviders();
+        setProviders(providers);
+      } catch (error) {
+        toast.error(
+          getErrorMessage(error, "No se pudieron cargar los proveedores"),
+        );
+      }
+    };
+    fetchProviders();
   }, []);
   return (
     <section>
@@ -36,6 +49,7 @@ export default function Products() {
       {!loading && (
         <ProductTable
           products={products}
+          providers={providers}
           onDelete={() => fetchProducts()}
         />
       )}
