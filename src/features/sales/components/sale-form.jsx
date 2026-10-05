@@ -9,14 +9,17 @@ export const SaleForm = ({ onSubmit }) => {
   const [users, setUsers] = useState([]);
   const [products, setProducts] = useState([]);
   const [userId, setUserId] = useState("");
-  const [items, setItems] = useState([emptyItem()]);
+  const [items, setItems] = useState(() => [emptyItem()]);
   const [validated, setValidated] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     const fetchUsersAndProducts = async () => {
       try {
-        const [users, products] = await Promise.all([getUsers(), getProducts()]);
+        const [users, products] = await Promise.all([
+          getUsers(),
+          getProducts(),
+        ]);
         setUsers(users);
         setProducts(products);
       } catch (error) {
@@ -27,12 +30,16 @@ export const SaleForm = ({ onSubmit }) => {
     fetchUsersAndProducts();
   }, []);
 
-  const productsById = new Map(products.map((product) => [product.id, product]));
+  const productsById = new Map(
+    products.map((product) => [product.id, product]),
+  );
 
   const handleItemChange = (index) => (e) => {
     const { name, value } = e.target;
     setItems((prev) =>
-      prev.map((item, idx) => (idx === index ? { ...item, [name]: value } : item)),
+      prev.map((item, idx) =>
+        idx === index ? { ...item, [name]: value } : item,
+      ),
     );
   };
 
@@ -131,8 +138,7 @@ export const SaleForm = ({ onSubmit }) => {
                       key={product.id}
                       value={product.id}
                       disabled={
-                        product.stock < 1 ||
-                        productsInOtherRows.has(product.id)
+                        product.stock < 1 || productsInOtherRows.has(product.id)
                       }
                     >
                       {product.name} — ${product.price} ({product.stock}{" "}
