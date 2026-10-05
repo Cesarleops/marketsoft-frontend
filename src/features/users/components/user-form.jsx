@@ -9,6 +9,7 @@ const initialUser = {
 export const UserForm = ({ userData, onSubmit }) => {
   const [user, setUser] = useState(() => userData ?? initialUser);
   const [validated, setValidated] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,10 +25,13 @@ export const UserForm = ({ userData, onSubmit }) => {
       return;
     }
     try {
+      setIsSubmitting(true);
       await onSubmit({ ...user });
     } catch (error) {
       console.error(error);
       toast.error("No se pudo guardar el usuario");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -83,8 +87,12 @@ export const UserForm = ({ userData, onSubmit }) => {
         <div className="invalid-feedback">El rol es obligatorio</div>
       </div>
       <div className="col-12">
-        <button type="submit" className="btn btn-primary">
-          Guardar
+        <button
+          type="submit"
+          className="btn btn-primary"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Guardando..." : "Guardar"}
         </button>
       </div>
     </form>

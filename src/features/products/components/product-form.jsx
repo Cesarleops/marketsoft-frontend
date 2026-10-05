@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getProviders } from "../../providers/api";
 import { toast } from "react-toastify";
+import { getErrorMessage } from "../../shared/http-client";
 
 const initialProduct = {
   name: "",
@@ -13,6 +14,7 @@ export const ProductForm = ({ productData, onSubmit }) => {
   const [product, setProduct] = useState(() => productData ?? initialProduct);
   const [providers, setProviders] = useState([]);
   const [validated, setValidated] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,6 +30,7 @@ export const ProductForm = ({ productData, onSubmit }) => {
       return;
     }
     try {
+      setIsSubmitting(true);
       await onSubmit({
         ...product,
         price: Number(product.price),
@@ -36,6 +39,8 @@ export const ProductForm = ({ productData, onSubmit }) => {
     } catch (error) {
       console.error(error);
       toast.error("No se pudo guardar el producto");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -46,6 +51,9 @@ export const ProductForm = ({ productData, onSubmit }) => {
         setProviders(providers);
       } catch (error) {
         console.error(error);
+        toast.error(
+          getErrorMessage(error, "No se pudieron cargar los proveedores"),
+        );
       }
     };
     fetchProviders();
@@ -112,12 +120,12 @@ export const ProductForm = ({ productData, onSubmit }) => {
           name="stock"
           id="stock"
           className="form-control"
-          min="1"
+          min="0"
           required
           value={product.stock}
           onChange={handleChange}
         />
-        <div className="invalid-feedback">El stock debe ser mayor a 0</div>
+        <div className="invalid-feedback">El stock no puede ser negativo</div>
       </div>
       <div className="col-12">
         <label htmlFor="provider" className="form-label">
@@ -143,8 +151,12 @@ export const ProductForm = ({ productData, onSubmit }) => {
         <div className="invalid-feedback">Debe seleccionar un proveedor</div>
       </div>
       <div className="col-12">
-        <button type="submit" className="btn btn-primary">
-          Guardar
+        <button
+          type="submit"
+          className="btn btn-primary"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Guardando..." : "Guardar"}
         </button>
       </div>
     </form>

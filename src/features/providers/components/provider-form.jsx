@@ -10,6 +10,7 @@ const initialProvider = {
 export const ProviderForm = ({ providerData, onSubmit }) => {
   const [provider, setProvider] = useState(() => providerData ?? initialProvider);
   const [validated, setValidated] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,10 +26,13 @@ export const ProviderForm = ({ providerData, onSubmit }) => {
       return;
     }
     try {
+      setIsSubmitting(true);
       await onSubmit({ ...provider });
     } catch (error) {
       console.error(error);
       toast.error("No se pudo guardar el proveedor");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -99,8 +103,12 @@ export const ProviderForm = ({ providerData, onSubmit }) => {
         <div className="invalid-feedback">La ciudad es obligatoria</div>
       </div>
       <div className="col-12">
-        <button type="submit" className="btn btn-primary">
-          Guardar
+        <button
+          type="submit"
+          className="btn btn-primary"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Guardando..." : "Guardar"}
         </button>
       </div>
     </form>
