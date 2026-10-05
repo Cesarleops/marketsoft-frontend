@@ -40,6 +40,7 @@ Además:
 ### Requisitos
 
 - Tener en ejecución el backend de la aplicación (ver su README). El frontend espera que la API esté disponible en `http://localhost:3000/api` (configurable en `src/features/shared/http-client.js`).
+- Hacer `git pull` en el backend para obtener la actualización más reciente con la configuración de CORS
 - Node.js 20.19 o superior (o 22.12+)
 - npm 10 o superior
 
